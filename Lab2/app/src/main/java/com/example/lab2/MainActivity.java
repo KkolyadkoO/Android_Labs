@@ -1,8 +1,6 @@
-package com.example.lab1;
+package com.example.lab2;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,25 +31,17 @@ public class MainActivity extends AppCompatActivity {
         btnPaper = findViewById(R.id.btnPaper);
         btnScissors = findViewById(R.id.btnScissors);
 
-        btnRock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playTurn("rock");
-            }
+        btnRock.setOnClickListener(view -> {
+            playTurn("rock");
         });
 
-        btnPaper.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playTurn("paper");
-            }
+        btnPaper.setOnClickListener(view -> {
+            playTurn("paper");
         });
 
-        btnScissors.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playTurn("scissors");
-            }
+        btnScissors.setOnClickListener(view -> {
+            playTurn("scissors");
+
         });
     }
 

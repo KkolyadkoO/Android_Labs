@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Lab1</string>
+    <string name="app_name">Lab2</string>
+    <string name="game_name">ИГРА КАМЕНЦЫ</string>
 </resources>
