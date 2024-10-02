@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
         btnOpen.setOnClickListener(view -> {
 //            Intent launchLab2 = getPackageManager().getLaunchIntentForPackage("com.example.lab2");
-//            Intent launchLab2 = new Intent();
-//            launchLab2.setAction("com.Lab2");
             Intent launchLab2 = new Intent();
-            launchLab2.setComponent(new ComponentName("com.example.lab2","com.example.lab2.MainActivity"));
+            launchLab2.setAction("com.Lab2");
+//            Intent launchLab2 = new Intent();
+//            launchLab2.setComponent(new ComponentName("com.example.lab2","com.example.lab2.MainActivity"));
             if (launchLab2 != null) {
                 startActivity(launchLab2);
             } else {
