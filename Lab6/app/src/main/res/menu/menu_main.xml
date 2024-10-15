@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/orange"
+        android:icon="@drawable/orange"
+        android:title="Апельсин" />
+    <item
+        android:id="@+id/banan"
+        android:icon="@drawable/banana"
+        android:title="Банан" />
+    <item
+        android:id="@+id/lemon"
+        android:icon="@drawable/lemon"
+        android:title="Лимон" />
+
+</menu>

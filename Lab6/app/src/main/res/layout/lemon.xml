@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Lemon">
+
+    <ImageView
+        android:id="@+id/image_lemon"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="100dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Фото фрукта"
+        android:src="@drawable/lemon_img" />
+
+    <TextView
+        android:id="@+id/text_description"
+        android:layout_width="293dp"
+        android:layout_height="287dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="370dp"
+        android:text="@string/lemon_description"
+        android:textSize="18dp" />
+
+
+</FrameLayout>

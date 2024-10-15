@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Banan">
+
+
+    <ImageView
+        android:id="@+id/image_banana"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="100dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/banana_img"
+        android:contentDescription="Фото фрукта" />
+
+    <TextView
+        android:id="@+id/text_description"
+        android:layout_width="293dp"
+        android:layout_height="287dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="370dp"
+        android:textSize="18dp"
+        android:text="@string/banana_description" />
+
+
+</FrameLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Апельсин"
+        android:id="@+id/orange"
+        app:showAsAction="never"/>
+    <item android:title="Банан"
+        android:id="@+id/banan"
+        app:showAsAction="never"/>
+    <item android:title="Лимон"
+        android:id="@+id/lemon"
+        app:showAsAction="never"/>
+</menu>

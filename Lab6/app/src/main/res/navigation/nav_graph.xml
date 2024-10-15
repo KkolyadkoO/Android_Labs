@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/orange">
+
+
+    <fragment
+        android:id="@+id/orange"
+        android:name="com.example.lab6.Orange"
+        android:label="Апельсин"
+        tools:layout="@layout/orange" />
+    <fragment
+        android:id="@+id/banan"
+        android:name="com.example.lab6.Banan"
+        android:label="Банан"
+        tools:layout="@layout/banan" />
+    <fragment
+        android:id="@+id/lemon"
+        android:name="com.example.lab6.Lemon"
+        android:label="Лимон"
+        tools:layout="@layout/lemon" />
+</navigation>
