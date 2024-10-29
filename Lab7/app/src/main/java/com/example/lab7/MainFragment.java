@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -18,10 +20,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
-public class MainFragment extends Fragment  {
+public class MainFragment extends Fragment {
     private TextInputEditText wordInput;
     private FloatingActionButton searchButton;
+    private ListView wordListView;
+    private ArrayAdapter<String> listAdapter;
+    private ArrayList<String> wordOccurrencesList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,6 +35,11 @@ public class MainFragment extends Fragment  {
 
         wordInput = view.findViewById(R.id.word_input);
         searchButton = view.findViewById(R.id.fab_search);
+        wordListView = view.findViewById(R.id.word_list);
+
+        wordOccurrencesList = new ArrayList<>();
+        listAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, wordOccurrencesList);
+        wordListView.setAdapter(listAdapter);
 
         searchButton.setOnClickListener(v -> searchWord());
 
@@ -44,12 +55,31 @@ public class MainFragment extends Fragment  {
 
         int frequency = countWordOccurrences(word);
         Snackbar.make(requireView(), "Слово \"" + word + "\" встречается " + frequency + " раз(а)", Snackbar.LENGTH_LONG).show();
+
+        // Check if the word is already in the list
+        String listItem = word + " - " + frequency;
+        boolean wordExists = false;
+        for (int i = 0; i < wordOccurrencesList.size(); i++) {
+            String existingItem = wordOccurrencesList.get(i);
+            if (existingItem.startsWith(word + " - ")) {
+                // Update the existing entry with the new frequency
+                wordOccurrencesList.set(i, listItem);
+                wordExists = true;
+                break;
+            }
+        }
+
+        // If word does not exist in the list, add it as a new entry
+        if (!wordExists) {
+            wordOccurrencesList.add(listItem);
+        }
+
+        listAdapter.notifyDataSetChanged();
     }
 
     private int countWordOccurrences(String word) {
         int count = 0;
         try {
-            // Открываем файл и читаем его содержимое
             InputStream inputStream = requireContext().openFileInput("textfile.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
@@ -68,6 +98,7 @@ public class MainFragment extends Fragment  {
         }
         return count;
     }
+
     private void createTextFile() {
         String sampleText = "In a small town nestled between rolling hills and dense forests, there lived a curious child named Alice. "
                 + "Alice was not like other children; she had a boundless curiosity and a thirst for knowledge that knew no limits. "

@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#0D7EA8</color> <!-- Example: Purple 500 -->
+    <color name="colorPrimaryDark">#063E52</color> <!-- Example: Purple 700 -->
+    <color name="colorAccent">#01374E</color> <!-- Example: Teal A200 -->
 </resources>
