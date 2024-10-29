@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 public class FirstFragment extends Fragment {

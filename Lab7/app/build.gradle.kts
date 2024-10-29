@@ -1,16 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
-    id("androidx.navigation.safeargs")
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "com.example.lab6"
+    namespace = "com.example.lab7"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.lab6"
+        applicationId = "com.example.lab7"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -32,32 +29,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
-    implementation(libs.lifecycle.runtime.ktx)
-    implementation(libs.activity.compose)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.ui.tooling.preview)
-    implementation(libs.material3)
-    implementation(libs.navigation.fragment.ktx)
-    implementation(libs.navigation.ui.ktx)
-    androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.ui.test.junit4)
-    debugImplementation(libs.ui.tooling)
-    debugImplementation(libs.ui.test.manifest)
-    val nav_version = "2.8.2"
-
+    val nav_version = "2.8.0"
     implementation("androidx.navigation:navigation-fragment:$nav_version")
-    implementation("androidx.navigation:navigation-ui:$nav_version")
+    implementation ("androidx.navigation:navigation-ui:$nav_version")
 
     implementation(libs.appcompat)
     implementation(libs.material)
