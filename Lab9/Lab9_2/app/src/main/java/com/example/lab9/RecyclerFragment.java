@@ -33,7 +33,7 @@ public class RecyclerFragment extends Fragment {
             viewModel.selectSmartphone(smartphone);
         });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
 
         return view;

@@ -9,10 +9,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            setContentView(R.layout.fragment_combined_portrait);
-        } else {
-            setContentView(R.layout.fragment_combined_landscape);
-        }
+
+            setContentView(R.layout.activity_main);
+
     }
 }

@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadButtonPressed() {
         if (viewModel.getLastSavedButton() != null) {
             updateTextView("Сохраненная кнопка: " + viewModel.getLastSavedButton());
+            viewModel.setLastButtonPressed(viewModel.getLastSavedButton());
         } else {
             updateTextView("Нет сохраненной кнопки");
         }
