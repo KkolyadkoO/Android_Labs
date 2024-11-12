@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/albumController"
+        android:icon="@drawable/album"
+        android:title="Альбом"/>
+    <item
+        android:id="@+id/commentsController"
+        android:icon="@drawable/comments"
+        android:title="Комментарии"/>
+    <item
+        android:id="@+id/photoController"
+        android:icon="@drawable/photo"
+        android:title="Фотография"/>
+</menu>

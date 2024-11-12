@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AlbumController">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/etAlbumId"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:width="200dp"
+            android:ems="10"
+            android:textSize="20sp"
+            android:hint="Введите альбом по Id"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btnFindAlbum"
+            android:layout_width="350dp"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:text="Найти альбом" />
+        <TextView
+            android:id="@+id/tvAlbumInfo"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="20sp"
+            />
+
+    </LinearLayout>
+
+
+</FrameLayout>

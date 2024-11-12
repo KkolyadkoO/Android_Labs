@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/albumController">
+
+    <fragment
+        android:id="@+id/albumController"
+        android:name="com.example.lab10.AlbumController"
+        android:label="Альбом"
+        tools:layout="@layout/album_view" />
+    <fragment
+        android:id="@+id/commentsController"
+        android:name="com.example.lab10.CommentsController"
+        android:label="Комментарии"
+        tools:layout="@layout/comments_view" />
+    <fragment
+        android:id="@+id/photoController"
+        android:name="com.example.lab10.PhotoController"
+        android:label="Фото"
+        tools:layout="@layout/photo_view" />
+</navigation>
