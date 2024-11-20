@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Lab12</string>
+    <string name="name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="phone">Телефон</string>
+    <string name="create">Добавить</string>
+    <string name="add_purchase">Добавить покупку</string>
+    <string name="add_customer">Добавить покупателя</string>
+    <string name="product">Название продукта</string>
+    <string name="count">Количество</string>
+    <string name="price">Цена</string>
+    <string name="birthday">Дата рождения</string>
+</resources>
