@@ -6,11 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +30,7 @@ import retrofit2.Response;
 public class SearchAndRecyclerController extends Fragment {
 
     private RecyclerView recyclerView;
+    private UniversytiesViewModel viewModel;
 
     @Nullable
     @Override
@@ -36,19 +40,38 @@ public class SearchAndRecyclerController extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         EditText etCountry = view.findViewById(R.id.etCountry);
         EditText etName = view.findViewById(R.id.etName);
+        TextView tvNull = view.findViewById(R.id.tvNull);
         Button btnFind = view.findViewById(R.id.btnFind);
+        viewModel = new ViewModelProvider(requireActivity()).get(UniversytiesViewModel.class);
+        viewModel.getUniversities().observe(getViewLifecycleOwner(), universities -> {
+            if (universities != null) {
+                UniversityRecyclerAdapter adapter = new UniversityRecyclerAdapter(universities, university -> {
+                    DetailFragment detailFragment = DetailFragment.newInstance(university);
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, detailFragment)
+                            .addToBackStack(null)
+                            .commit();
+                });
+                recyclerView.setAdapter(adapter);
+            }
+        });
         btnFind.setOnClickListener(v -> {
-            fetchUniversities(new UniversitiesCallback() {
+            tvNull.setVisibility(View.GONE);
+            fetchUniversities(view ,new UniversitiesCallback() {
                 @Override
                 public void onSuccess(List<University> universities) {
+                    viewModel.addUniversities(universities);
+                    if (universities.isEmpty()){
+                        tvNull.setVisibility(View.VISIBLE);
+                    }
                     UniversityRecyclerAdapter adapter = new UniversityRecyclerAdapter(universities, university -> {
-            // Переход на DetailFragment при нажатии на элемент
-            DetailFragment detailFragment = DetailFragment.newInstance(university);
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, detailFragment)
-                    .addToBackStack(null)
-                    .commit();
-        }););
+                        // Переход на com.example.lab11.DetailFragment при нажатии на элемент
+                        DetailFragment detailFragment = DetailFragment.newInstance(university);
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, detailFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    });
                     recyclerView.setAdapter(adapter);
                 }
 
@@ -56,33 +79,22 @@ public class SearchAndRecyclerController extends Fragment {
                 public void onError(String errorMessage) {
                     Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
                 }
-            }, etName.getText().toString() ,etCountry.getText().toString());
+            }, etName.getText().toString(), etCountry.getText().toString());
         });
-
-
-//
-//        List<Smartphone> smartphones = SmartphoneStore.getSmartphones();
-//        SmartphoneRecyclerAdapter adapter = new SmartphoneRecyclerAdapter(smartphones, smartphone -> {
-//            // Переход на DetailFragment при нажатии на элемент
-//            DetailFragment detailFragment = DetailFragment.newInstance(smartphone);
-//            getActivity().getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.fragment_container, detailFragment)
-//                    .addToBackStack(null)
-//                    .commit();
-//        });
-//
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recyclerView.setAdapter(adapter);
 
         return view;
     }
-    public void fetchUniversities(UniversitiesCallback callback, String name, String country) {
+
+    public void fetchUniversities(View view,UniversitiesCallback callback, String name, String country) {
+        ProgressBar progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
         NetworkService.getInstance()
                 .getUniversityDomainsApi()
                 .getUniversityByNameAndCountry(name, country)
                 .enqueue(new Callback<List<University>>() {
                     @Override
                     public void onResponse(Call<List<University>> call, Response<List<University>> response) {
+                        progressBar.setVisibility(View.GONE);
                         if (response.isSuccessful() && response.body() != null) {
                             List<University> universities = response.body();
                             callback.onSuccess(universities);
@@ -95,6 +107,7 @@ public class SearchAndRecyclerController extends Fragment {
 
                     @Override
                     public void onFailure(Call<List<University>> call, Throwable t) {
+                        progressBar.setVisibility(View.GONE);
                         callback.onError("Ошибка при подключении к серверу");
                         t.printStackTrace();
                     }
