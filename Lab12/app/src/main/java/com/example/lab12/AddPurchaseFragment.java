@@ -4,22 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.lab12.databinding.FragmentAddPurchaseBinding;
 import com.example.lab12.entities.Purchase;
 import com.example.lab12.viewModel.MainViewModel;
 
 public class AddPurchaseFragment extends Fragment {
+
+    private FragmentAddPurchaseBinding binding;
     private static final String ARG_CUSTOMER_ID = "customer_id";
     private long customerId;
-
-    private EditText etProduct, etCount, etPrice;
-    private Button btnAddPurchase;
     private MainViewModel viewModel;
 
     public static AddPurchaseFragment newInstance(long customerId) {
@@ -40,33 +38,33 @@ public class AddPurchaseFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_purchase, container, false);
-
-        etProduct = view.findViewById(R.id.et_product);
-        etCount = view.findViewById(R.id.et_count);
-        etPrice = view.findViewById(R.id.et_price);
-        btnAddPurchase = view.findViewById(R.id.btn_add_purchase);
-
+        binding = FragmentAddPurchaseBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        btnAddPurchase.setOnClickListener(v -> {
-            String product = etProduct.getText().toString().trim();
-            String countStr = etCount.getText().toString().trim();
-            String priceStr = etPrice.getText().toString().trim();
+        binding.btnAddPurchase.setOnClickListener(v -> addPurchase());
+        return binding.getRoot();
+    }
 
-            if (!product.isEmpty() && !countStr.isEmpty() && !priceStr.isEmpty()) {
-                Purchase purchase = new Purchase();
-                purchase.product = product;
-                purchase.count = Integer.parseInt(countStr);
-                purchase.price = Double.parseDouble(priceStr);
-                purchase.customerId = customerId;
+    private void addPurchase() {
+        String product = binding.etProduct.getText().toString().trim();
+        String countStr = binding.etCount.getText().toString().trim();
+        String priceStr = binding.etPrice.getText().toString().trim();
 
-                viewModel.insertPurchase(purchase);
-                getParentFragmentManager().popBackStack();
-            }
-        });
+        if (!product.isEmpty() && !countStr.isEmpty() && !priceStr.isEmpty()) {
+            Purchase purchase = new Purchase();
+            purchase.product = product;
+            purchase.count = Integer.parseInt(countStr);
+            purchase.price = Double.parseDouble(priceStr);
+            purchase.customerId = customerId;
 
-        return view;
+            viewModel.insertPurchase(purchase);
+            getParentFragmentManager().popBackStack();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null; // Очистка binding для предотвращения утечек памяти
     }
 }
-

@@ -16,16 +16,10 @@ public class PurchaseViewModel extends ViewModel {
         purchaseDao = App.getInstance().getDatabase().purchaseDao();
     }
 
-    public LiveData<List<Purchase>> getAllPurchasesByCustomerId(long customerId) {
-        return purchaseDao.getAllByCustomerId(customerId);
-    }
-
     public LiveData<Purchase> getPurchaseById(long purchaseId) {
         return purchaseDao.getById(purchaseId);
     }
 
-    public void insertPurchase(Purchase purchase) {
-        new Thread(() -> purchaseDao.insert(purchase)).start();
-    }
+
 }
 

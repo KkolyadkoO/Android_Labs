@@ -9,18 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lab12.adapters.PurchaseAdapter;
+import com.example.lab12.databinding.FragmentPurchasesBinding;
 import com.example.lab12.viewModel.MainViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PurchasesFragment extends Fragment {
+
+    private FragmentPurchasesBinding binding;
     private static final String ARG_CUSTOMER_ID = "customer_id";
     private long customerId;
 
-    private RecyclerView recyclerView;
-    private FloatingActionButton fabAddPurchase;
     private PurchaseAdapter adapter;
     private MainViewModel viewModel;
 
@@ -42,20 +41,28 @@ public class PurchasesFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_purchases, container, false);
+        binding = FragmentPurchasesBinding.inflate(inflater, container, false);
 
-        recyclerView = view.findViewById(R.id.recycler_view_purchases);
-        fabAddPurchase = view.findViewById(R.id.fab_add_purchase);
+        setupRecyclerView();
+        setupViewModel();
+        setupFab();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        return binding.getRoot();
+    }
+
+    private void setupRecyclerView() {
+        binding.recyclerViewPurchases.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new PurchaseAdapter(purchase -> openPurchaseDetails(purchase.id));
-        recyclerView.setAdapter(adapter);
+        binding.recyclerViewPurchases.setAdapter(adapter);
+    }
 
+    private void setupViewModel() {
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         viewModel.getPurchasesByCustomer(customerId).observe(getViewLifecycleOwner(), adapter::submitList);
+    }
 
-        fabAddPurchase.setOnClickListener(v -> openAddPurchase());
-        return view;
+    private void setupFab() {
+        binding.fabAddPurchase.setOnClickListener(v -> openAddPurchase());
     }
 
     private void openAddPurchase() {
@@ -75,5 +82,10 @@ public class PurchasesFragment extends Fragment {
                 .addToBackStack(null)
                 .commit();
     }
-}
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+}

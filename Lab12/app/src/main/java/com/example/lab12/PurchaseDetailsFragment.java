@@ -4,24 +4,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.lab12.databinding.FragmentPurchaseDetailsBinding;
 import com.example.lab12.entities.Purchase;
 import com.example.lab12.viewModel.PurchaseViewModel;
 
 public class PurchaseDetailsFragment extends Fragment {
 
+    private FragmentPurchaseDetailsBinding binding;
     private static final String ARG_PURCHASE_ID = "purchase_id";
     private long purchaseId;
-
-    private TextView tvProduct;
-    private TextView tvCount;
-    private TextView tvPrice;
 
     private PurchaseViewModel viewModel;
 
@@ -36,6 +33,7 @@ public class PurchaseDetailsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             purchaseId = getArguments().getLong(ARG_PURCHASE_ID);
         }
@@ -44,16 +42,10 @@ public class PurchaseDetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_purchase_details, container, false);
-
-        tvProduct = view.findViewById(R.id.tv_product);
-        tvCount = view.findViewById(R.id.tv_count);
-        tvPrice = view.findViewById(R.id.tv_price);
-
+        binding = FragmentPurchaseDetailsBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(PurchaseViewModel.class);
         observePurchaseDetails();
-
-        return view;
+        return binding.getRoot();
     }
 
     private void observePurchaseDetails() {
@@ -65,8 +57,14 @@ public class PurchaseDetailsFragment extends Fragment {
     }
 
     private void displayPurchaseDetails(Purchase purchase) {
-        tvProduct.setText(purchase.product);
-        tvCount.setText(String.valueOf(purchase.count));
-        tvPrice.setText(String.format("$%.2f", purchase.price));
+        binding.tvProduct.setText(purchase.product);
+        binding.tvCount.setText(String.valueOf(purchase.count));
+        binding.tvPrice.setText(String.format("$%.2f", purchase.price));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
