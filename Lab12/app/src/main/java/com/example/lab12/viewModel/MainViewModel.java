@@ -6,11 +6,9 @@ import androidx.lifecycle.ViewModel;
 import com.example.lab12.App;
 import com.example.lab12.DAO.CustomerDao;
 import com.example.lab12.DAO.PurchaseDao;
-import com.example.lab12.database.AppDatabase;
 import com.example.lab12.entities.Customer;
 import com.example.lab12.entities.Purchase;
 
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executors;
 
